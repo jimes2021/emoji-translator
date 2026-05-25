@@ -30,11 +30,6 @@ export default function RootLayout({
       <head>
         <link rel="canonical" href="https://wordstoemoji.com" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script
-          async
-          src="https://cdn.adsterra.com/adsterra.js"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className="min-h-full flex flex-col bg-gradient-to-br from-purple-50 via-white to-pink-50">
         {children}

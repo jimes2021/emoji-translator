@@ -1,5 +1,4 @@
 import EmojiTranslator from '@/components/EmojiTranslator';
-import AdPlacement from '@/components/AdPlacement';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -25,8 +24,6 @@ export default function Home() {
       <section className="px-4 pb-4">
         <EmojiTranslator />
       </section>
-
-      <AdPlacement />
 
       <section className="max-w-3xl mx-auto px-4 pb-16">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
@@ -99,10 +96,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="max-w-3xl mx-auto px-4 pb-16">
-        <AdPlacement />
       </section>
 
       <footer className="text-center py-8 border-t border-gray-200">
