@@ -5,6 +5,8 @@ export const metadata: Metadata = {
   title: 'Words to Emoji Translator - Free Online Tool',
   description:
     'Free online Words to Emoji Translator. Convert your text into emojis instantly. No sign-up required. Fast, easy, and fun to use!',
+  keywords:
+    'words to emoji translator, emoji translator, text to emoji, convert words to emojis, emoji converter, free emoji tool',
 };
 
 export default function Home() {

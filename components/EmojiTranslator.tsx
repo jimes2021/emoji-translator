@@ -1,26 +1,44 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { translateToEmoji, getEmojiCount } from '@/lib/translator';
 
 export default function EmojiTranslator() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleTranslate = () => {
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  const handleTranslate = useCallback(() => {
     const result = translateToEmoji(input);
     setOutput(result);
     setCopied(false);
-  };
+  }, [input]);
 
-  const handleCopy = async () => {
+  const handleCopy = useCallback(async () => {
     await navigator.clipboard.writeText(output);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setCopied(false), 2000);
+  }, [output]);
 
-  const emojiCount = getEmojiCount(input);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleTranslate();
+      }
+    },
+    [handleTranslate]
+  );
+
+  const emojiCount = output ? getEmojiCount(output) : 0;
 
   return (
     <div className="w-full max-w-3xl mx-auto space-y-6">
@@ -33,6 +51,7 @@ export default function EmojiTranslator() {
           placeholder="Type something here... example: I love pizza and music"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <button
           onClick={handleTranslate}
